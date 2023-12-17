@@ -1,6 +1,9 @@
 const fs = require("fs");
 const path = require("path");
 
+let outerLoopCount = 0; // Initialize the outer loop counter
+let innerLoopCount = 0; // Initialize the inner loop counter
+
 function findFirstAndLastDigit(inputLine) {
   const numberWords = {
     one: "1",
@@ -17,8 +20,10 @@ function findFirstAndLastDigit(inputLine) {
   let lastIndex = -1;
   let firstDigit = "";
   let lastDigit = "";
+
   // Loop through the inputLine
   for (let i = 0; i < inputLine.length; i++) {
+    outerLoopCount++;
     let char = inputLine[i];
     // Check for single digit
     if (char >= "1" && char <= "9") {
@@ -32,6 +37,7 @@ function findFirstAndLastDigit(inputLine) {
     } else {
       // Check for number words
       for (const [word, digit] of Object.entries(numberWords)) {
+        innerLoopCount++;
         if (inputLine.startsWith(word, i)) {
           let wordEnd = i + word.length - 1;
           if (i < firstIndex) {
@@ -41,12 +47,13 @@ function findFirstAndLastDigit(inputLine) {
           if (wordEnd > lastIndex) {
             lastIndex = wordEnd;
             lastDigit = digit;
+            i = lastIndex;
+            break;
           }
         }
       }
     }
   }
-
   return firstDigit && lastDigit ? parseInt(firstDigit + lastDigit) : 0;
 }
 
@@ -62,6 +69,8 @@ function calculateSumPart2(inputs) {
 const filePath = path.join(__dirname, "..", "InputDayOne.txt");
 const input = fs.readFileSync(filePath, "utf8").split(/\r?\n/);
 console.log("Part 2 Solution:", calculateSumPart2(input));
+console.log("Outer loop iterations:", outerLoopCount);
+console.log("Inner loop iterations:", innerLoopCount);
 
 module.exports = {
   calculateSumPart2,

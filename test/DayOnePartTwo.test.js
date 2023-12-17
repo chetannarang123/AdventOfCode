@@ -3,6 +3,8 @@ const {
   calculateSumPart2,
 } = require("../src/DayOnePartTwo"); // Import your functions
 
+const calculateSumPart2UsingRegex = require("../src/DayOnePartTwoUsingRegex");
+
 describe("findFirstAndLastDigit", () => {
   test("line with both numbers and words", () => {
     expect(findFirstAndLastDigit("three 3 two 2 one")).toBe(31);
@@ -52,5 +54,31 @@ describe("calculateSumPart2", () => {
 
   test("empty array of lines", () => {
     expect(calculateSumPart2([])).toBe(0);
+  });
+});
+
+describe("calculateSumPart2UsingRegex", () => {
+  test("multiple lines with mix of numbers and words", () => {
+    const inputs = ["three 3 two 2 one", "1 apple 2 oranges three"];
+    expect(calculateSumPart2UsingRegex(inputs)).toBe(44); // 31 from first line and 13 from second
+  });
+
+  test("lines with only numbers", () => {
+    const inputs = ["123", "456"];
+    expect(calculateSumPart2UsingRegex(inputs)).toBe(59); // 13 from first line and 46 from second
+  });
+
+  test("lines with only number words", () => {
+    const inputs = ["one two three", "four five six"];
+    expect(calculateSumPart2UsingRegex(inputs)).toBe(59); // 13 from first line and 46 from second
+  });
+
+  test("lines with no numbers or number words", () => {
+    const inputs = ["hello world", "testing"];
+    expect(calculateSumPart2UsingRegex(inputs)).toBe(0);
+  });
+
+  test("empty array of lines", () => {
+    expect(calculateSumPart2UsingRegex([])).toBe(0);
   });
 });
