@@ -1,0 +1,14 @@
+{
+  "name": "matador-assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "DayOnePartOne.js",
+  "scripts": {
+    "test": "jest -i --colors --verbose"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
